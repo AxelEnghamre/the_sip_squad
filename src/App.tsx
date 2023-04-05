@@ -4,7 +4,7 @@ import Result from "./hooks/useResultOfIngredient";
 const App = () => {
   return (
     <>
-      <InputIngredient />
+      <InputIngredient onSubmit={(ingredient: string)=>{console.log(`submit ${ingredient}`)}} />
     </>
   );
 };
