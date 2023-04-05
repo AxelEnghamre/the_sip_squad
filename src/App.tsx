@@ -1,7 +1,9 @@
+import InputIngredient from "./components/InputIngredient";
+
 const App = () => {
   return (
     <>
-      hej
+      <InputIngredient />
     </>
   );
 };
