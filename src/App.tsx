@@ -1,11 +1,10 @@
 import InputIngredient from "./components/InputIngredient";
-import Result from "./components/Result";
+import Result from "./hooks/useResultOfIngredient";
 
 const App = () => {
   return (
     <>
       <InputIngredient />
-        <Result />
     </>
   );
 };
