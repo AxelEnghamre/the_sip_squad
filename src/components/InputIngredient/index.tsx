@@ -11,16 +11,23 @@ const InputIngredient = ({
 }) => {
   const [value, setValue] = useState("");
 
+  // Handle the input change value from the input
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
-  const handleEnterKey = (event: React.KeyboardEvent) => {
+  const handleKeyUp = (event: React.KeyboardEvent) => {
+    // If the key is enter submit
     if (event.key === "Enter") {
       handleSubmit();
     }
+    // If the key is esc reset the value
+    if (event.key === "Escape") {
+     setValue("");
+    }
   };
 
+  // Validate the value before submit
   const handleSubmit = () => {
     if (value.length < minimumLength) {
       alert(`The ingredient must contain at least ${minimumLength} characters`);
@@ -32,7 +39,9 @@ const InputIngredient = ({
       );
       return;
     }
+    // submit and reset the value
     onSubmit(value);
+    setValue("");
   };
 
   return (
@@ -41,7 +50,7 @@ const InputIngredient = ({
         className="w-full rounded-l-lg bg-pale-dogwood p-2 text-charcoal placeholder:text-bright-pink"
         type="text"
         onChange={handleChange}
-        onKeyUp={handleEnterKey}
+        onKeyUp={handleKeyUp}
         value={value}
         placeholder="Enter Ingredient"
       />
