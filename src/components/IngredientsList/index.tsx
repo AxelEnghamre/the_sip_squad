@@ -2,31 +2,11 @@ import ListItem from "./ListItem";
 
 const IngredientsList = ({
   ingredients,
-  setIngredients,
+  toggleIngredientVisibility,
 }: {
   ingredients: Ingredient[];
-  setIngredients: Function;
+  toggleIngredientVisibility: Function;
 }) => {
-  const toggleIngredientVisibility = (id: string) => {
-    const foundIndexKey = ingredients.findIndex(
-      (ingredient) => ingredient.id === id
-    );
-
-    const updatedIngredients = ingredients.map((ingredient, index) => {
-      if (index === foundIndexKey) {
-        return {
-          name: ingredient.name,
-          id: ingredient.id,
-          isVisible: !ingredient.isVisible,
-        };
-      }
-
-      return ingredient;
-    });
-
-    setIngredients(updatedIngredients);
-  };
-
   const ListItems = ingredients.map((ingredient, index) => {
     return (
       <ListItem
