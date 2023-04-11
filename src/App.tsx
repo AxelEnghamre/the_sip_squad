@@ -36,11 +36,27 @@ const App = () => {
     setIngredients(updatedIngredients);
   };
 
+  const removeIngredient = (id: string) => {
+    const foundIndexKey = ingredients.findIndex(
+      (ingredient) => ingredient.id === id
+    );
+
+    const updatedIngredients = ingredients.filter((ingredient, index) => {
+      if (index === foundIndexKey) {
+        return;
+      }
+      return ingredient;
+    });
+
+    setIngredients(updatedIngredients);
+  };
+
   return (
     <>
       <IngredientsList
         ingredients={ingredients}
         toggleIngredientVisibility={toggleIngredientVisibility}
+        removeIngredient={removeIngredient}
       />
       <InputIngredient onSubmit={addIngredient} />
     </>

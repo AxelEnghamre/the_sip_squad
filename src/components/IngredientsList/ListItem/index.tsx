@@ -1,13 +1,19 @@
 const ListItem = ({
   ingredient,
   toggleIngredientVisibility,
+  removeIngredient
 }: {
   ingredient: Ingredient;
   toggleIngredientVisibility: Function;
+  removeIngredient: Function;
 }) => {
   const handleVisibility = () => {
     toggleIngredientVisibility(ingredient.id);
   };
+
+  const handleSubmit = () => {
+    removeIngredient(ingredient.id);
+  }
 
   return (
     <li className="flex h-14 w-full flex-row justify-between gap-2 rounded-xl bg-bright-pink p-2">
@@ -35,6 +41,7 @@ const ListItem = ({
       <button
         type="submit"
         title={`Remove ${ingredient.name}`}
+        onClick={handleSubmit}
         className="h-full w-8 rounded-r-lg bg-pale-dogwood text-charcoal transition-colors duration-200 hover:text-bright-pink"
       >
         -

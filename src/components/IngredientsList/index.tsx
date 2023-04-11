@@ -3,9 +3,11 @@ import ListItem from "./ListItem";
 const IngredientsList = ({
   ingredients,
   toggleIngredientVisibility,
+  removeIngredient,
 }: {
   ingredients: Ingredient[];
   toggleIngredientVisibility: Function;
+  removeIngredient: Function;
 }) => {
   const ListItems = ingredients.map((ingredient, index) => {
     return (
@@ -13,6 +15,7 @@ const IngredientsList = ({
         key={`${ingredient.name}.${index}`}
         ingredient={ingredient}
         toggleIngredientVisibility={toggleIngredientVisibility}
+        removeIngredient={removeIngredient}
       />
     );
   });
