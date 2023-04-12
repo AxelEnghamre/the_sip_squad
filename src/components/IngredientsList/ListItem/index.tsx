@@ -1,7 +1,7 @@
 const ListItem = ({
   ingredient,
   toggleIngredientVisibility,
-  removeIngredient
+  removeIngredient,
 }: {
   ingredient: Ingredient;
   toggleIngredientVisibility: Function;
@@ -13,7 +13,7 @@ const ListItem = ({
 
   const handleSubmit = () => {
     removeIngredient(ingredient.id);
-  }
+  };
 
   return (
     <li className="flex h-14 w-full flex-row justify-between gap-2 rounded-xl bg-bright-pink p-2">
