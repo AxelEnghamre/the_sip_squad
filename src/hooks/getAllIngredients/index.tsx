@@ -4,7 +4,7 @@ const POST_API = "www.thecocktaildb.com/api/json/v1/1/search.php?s="
 const getAllIngredients = (drink : string[]) => { // custom hook to get the ingredients from the drinks
     const [showIngredients, setShowIngredients] = useState([""]); // state to show the ingredients
     let ingredients: { strIngredient1: string }[] = []; // array to store the ingredients
-    useEffect( () => { // useEffect to fetch the data
+    useEffect( () => { // useEffect to fetch the datas
         setShowIngredients(["lodaing..."]); // set the state to loading while fetching the data
         const fetchAPI = async () => { // async function to fetch the data
             const response = await fetch(POST_API + drink.join(","));
