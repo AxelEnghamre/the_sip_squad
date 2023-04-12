@@ -17,21 +17,25 @@ const App = () => {
     ingredient: Ingredient;
     drinks: any;
   }[]>([]);
+  const [result, setResult] = useState<any[]>([]);
   useEffect(() => {
-    const visibleIngredients = ingredients.filter((ingredient)=>{
-      if (ingredient.isVisible) {
-        return ingredient;
+
+    if(ingredients.length > 0) {
+      const lastIngredient = ingredients[ingredients.length - 1];
+      if (drinks.length > 0) {
+        const lastDrinks = drinks[drinks.length - 1];
+        if (lastIngredient != lastDrinks.ingredient) {
+          fetchDrink(lastIngredient.name).then((drinks) => {
+            setDrinks((oldDrinks) => [...oldDrinks, {ingredient: lastIngredient, drinks}]);
+          });
+        }
       }
-    }); 
-
-    if(visibleIngredients.length > 0) {
-      const lastIngredient = visibleIngredients[visibleIngredients.length - 1];
-      fetchDrink(lastIngredient.name).then((drinks) => {
-        setDrinks((oldDrinks) => [...oldDrinks, {ingredient: lastIngredient,drinks}]);
-      });
+      else {
+        fetchDrink(ingredients[0].name).then((drinks) => {
+          setDrinks((oldDrinks) => [...oldDrinks, {ingredient: ingredients[0], drinks}]);
+        });
+      }
     }
-
-
   }, [ingredients]);
 
   useEffect(() => {
