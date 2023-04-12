@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const ListItem = ({
   ingredient,
   toggleIngredientVisibility,
@@ -16,7 +18,13 @@ const ListItem = ({
   };
 
   return (
-    <li className="flex h-14 w-full flex-row justify-between gap-2 rounded-xl bg-bright-pink p-2">
+    <motion.li
+      className="flex h-14 w-full flex-row justify-between gap-2 rounded-xl bg-bright-pink p-2"
+      initial={{ opacity: 1 }}
+      animate={{ scale: [0.95, 1.01, 1] }}
+      exit={{ scale: [1, 1.01, 0.8] }}
+      transition={{ duration: 0.5 }}
+    >
       <input
         type="checkbox"
         checked={ingredient.isVisible}
@@ -46,7 +54,7 @@ const ListItem = ({
       >
         -
       </button>
-    </li>
+    </motion.li>
   );
 };
 

@@ -10,8 +10,8 @@ const App = () => {
   }, [ingredients]);
 
   const addIngredient = (ingredient: string) => {
-    setIngredients([
-      ...ingredients,
+    setIngredients((prevState) => [
+      ...prevState,
       { name: ingredient, isVisible: true, id: crypto.randomUUID() },
     ]);
   };
@@ -41,7 +41,9 @@ const App = () => {
       (ingredient) => ingredient.id === id
     );
 
-    const updatedIngredients = ingredients.filter((ingredient, index) => {
+    const temp = [...ingredients];
+
+    const updatedIngredients = temp.filter((ingredient, index) => {
       if (index === foundIndexKey) {
         return;
       }
