@@ -1,38 +1,42 @@
 import { useEffect, useState } from "react";
 import IngredientsList from "./components/IngredientsList";
 import InputIngredient from "./components/InputIngredient";
-import UseResultOfIngredient from "./hooks/useResultOfIngredient";
+
+
+const fetchDrink = async (name: string) => {
+  const API = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
+  const response = await fetch(API + name);
+  const data = await response.json();
+
+  return data;
+};
 
 const App = () => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
-    const [drinks, setDrinks] = useState<string[]>([]);
-  const API = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
+  const [drinks, setDrinks] = useState<{
+    ingredient: Ingredient;
+    drinks: any;
+  }[]>([]);
   useEffect(() => {
-    //get name of ingredients
-    let ingredientsName: string[] = [];
-    ingredients.map((ingredient) => {
-        if (ingredient.isVisible) {
-            ingredientsName.push(ingredient.name);
-        }
-    });
-    console.log(ingredients);
-    console.log(ingredientsName);
-    ingredientsName.map((ingredientName) => {
+    const visibleIngredients = ingredients.filter((ingredient)=>{
+      if (ingredient.isVisible) {
+        return ingredient;
+      }
+    }); 
+
+    if(visibleIngredients.length > 0) {
+      const lastIngredient = visibleIngredients[visibleIngredients.length - 1];
+      fetchDrink(lastIngredient.name).then((drinks) => {
+        setDrinks((oldDrinks) => [...oldDrinks, {ingredient: lastIngredient,drinks}]);
+      });
+    }
 
 
-      const fetchAPI = async () => { // async function to fetch the data
-        const response = await fetch(API + ingredientName);
-        const data = await response.json();
-        console.log('data');
-        console.log(data.drinks);
-        setDrinks((oldArray) => [...oldArray, data.drinks]);
-        }
-        fetchAPI();
-      setDrinks([]);
-      console.log('state');
-      console.log(drinks);
-    });
   }, [ingredients]);
+
+  useEffect(() => {
+    console.log(drinks);
+  }, [drinks]);
 
   const addIngredient = (ingredient: string) => {
     setIngredients((prevState) => [
