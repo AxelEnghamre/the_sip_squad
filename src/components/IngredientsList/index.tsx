@@ -1,4 +1,4 @@
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import ListItem from "./ListItem";
 
 const IngredientsList = ({
@@ -11,9 +11,9 @@ const IngredientsList = ({
   removeIngredient: Function;
 }) => {
   return (
-    <ul className="flex h-fit w-full flex-col gap-6">
+    <motion.ul className="flex h-fit w-full flex-col gap-2">
       <AnimatePresence>
-        {ingredients.map((ingredient, index) => {
+        {ingredients.map((ingredient) => {
           return (
             <ListItem
               key={ingredient.id}
@@ -24,7 +24,7 @@ const IngredientsList = ({
           );
         })}
       </AnimatePresence>
-    </ul>
+    </motion.ul>
   );
 };
 
