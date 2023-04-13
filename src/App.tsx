@@ -2,12 +2,6 @@ import { useEffect, useState } from "react";
 import IngredientsList from "./components/IngredientsList";
 import InputIngredient from "./components/InputIngredient";
 
-interface Ingredient {
-  name: string;
-  isVisible: boolean;
-  id: string;
-}
-
 const fetchDrink = async (name: string) => {
   const API = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
   const response = await fetch(API + name);
@@ -50,7 +44,7 @@ const App = () => {
   const addIngredient = (ingredient: string) => {
     setIngredients((prevState) => [
       ...prevState,
-      { name: ingredient, isVisible: true, id: Math.random().toString() },
+      { name: ingredient, isVisible: true, id: crypto.randomUUID() },
     ]);
   };
 
