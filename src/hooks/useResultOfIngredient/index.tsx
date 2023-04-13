@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 const POST_API = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="
 
-const useResultOfIngredient = (ingredient : string) => { // custom hook to get the result of the ingredient
+const useResultOfIngredient = (ingredient : string[]) => { // custom hook to get the result of the ingredient
     const [showDrinks, setShowDrinks] = useState([""]); // state to show the drinks
     let drinks: { strDrink: string }[] = []; // array to store the drinks
     useEffect( () => { // useEffect to fetch the data
@@ -12,7 +12,7 @@ const useResultOfIngredient = (ingredient : string) => { // custom hook to get t
             drinks = data.drinks; // store the drinks in the drinks array
             setShowDrinks([""]); // set the state to empty
             drinks.map((drink, index) => { // map the drinks array to set the state
-                setShowDrinks((oldArray) => [...oldArray, drink.strDrink]); // set the state to the drinks array
+                setShowDrinks((oldArray : string[]) => [...oldArray, drink.strDrink]); // set the state to the drinks array
             });
         }
         fetchAPI(); // call the async function
