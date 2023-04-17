@@ -57,32 +57,42 @@ const fetchDrinksByIngredients = async (ingredients: Ingredient[]) => {
         });
     });
 
+    drinkLists.forEach((list) => {
+        list.drinks.sort((a: any, b: any) => {
+            return matchedDrinkNames.indexOf(a.strDrink) - matchedDrinkNames.indexOf(b.strDrink);
+        });
+    });
+
+
+
     return { matchedDrinkNames, drinkLists };
 };
 
 
 const App = () => {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
-  const [drinks, setDrinks] = useState<string[]>([]);
+    const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+    const [drinks, setDrinks] = useState<string[]>([]);
+    const [drinkLists, setDrinkLists] = useState<any[]>([]);
 
     useEffect(() => {
+        const fetchDrinkLists = async () => {
+            const { matchedDrinkNames, drinkLists } = await fetchDrinksByIngredients(filteredIngredients);
+            setDrinks(matchedDrinkNames);
+            setDrinkLists(drinkLists);
+        };
+
         const filteredIngredients = ingredients.filter((ingredient) => ingredient.isVisible);
         if (filteredIngredients.length === 0) {
             setDrinks([]);
+            setDrinkLists([]);
             return;
         }
 
-        const fetchDrinks = async () => {
-            const { matchedDrinkNames } = await fetchDrinksByIngredients(filteredIngredients);
-            setDrinks(matchedDrinkNames);
-        };
-
-        fetchDrinks();
+        fetchDrinkLists();
     }, [ingredients]);
 
-
-
     const addIngredient = (ingredient: string) => {
+        ingredient = ingredient.charAt(0).toUpperCase() + ingredient.slice(1);
     setIngredients((prevState) => [
       ...prevState,
       { name: ingredient, isVisible: true, id: crypto.randomUUID() },
@@ -125,7 +135,7 @@ const App = () => {
 
     setIngredients(updatedIngredients);
   };
-
+console.log(drinkLists);
   return (
       <>
         <IngredientsList
@@ -134,11 +144,40 @@ const App = () => {
             removeIngredient={removeIngredient}
         />
         <InputIngredient onSubmit={addIngredient} />
-
         <div>
-            {drinks.map((drink) => (
-                <div key={drink}>{drink}</div>
-            ))}
+            {
+                drinkLists.map((drinkList) => {
+                    return (
+                        <div>
+                            <h1>{drinkList.ingredient.name}</h1>
+                            <ul>
+                                {
+                                    drinkList.drinks.map((drink: any) => {
+                                        return (
+                                            <li>
+                                                <h2 className={"text-3xl"}>{drink.strDrink}</h2>
+                                                <ul className={" list-disc list-inside"}>
+                                                    {
+                                                        Object.keys(drink.ingredients).map((key) => {
+                                                            if (key.startsWith('strIngredient') && drink.ingredients[key]) {
+                                                                return (
+                                                                    <li className={ingredients.find((ingredient) => ingredient.name === drink.ingredients[key]) ? 'text-green-500' : 'text-red-500'}>
+                                                                        {drink.ingredients[key]}
+                                                                    </li>
+                                                                );
+                                                            }
+                                                        })
+                                                    }
+                                                </ul>
+                                            </li>
+                                        );
+                                    })
+                                }
+                            </ul>
+                        </div>
+                    );
+                })
+            }
         </div>
       </>
   );
