@@ -65,17 +65,24 @@ const App = () => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [drinks, setDrinks] = useState<string[]>([]);
 
-  useEffect(() => {
-    const fetchDrinks = async () => {
-        const { matchedDrinkNames } = await fetchDrinksByIngredients(ingredients);
-        setDrinks(matchedDrinkNames);
-    };
+    useEffect(() => {
+        const filteredIngredients = ingredients.filter((ingredient) => ingredient.isVisible);
+        if (filteredIngredients.length === 0) {
+            setDrinks([]);
+            return;
+        }
 
-    fetchDrinks();
+        const fetchDrinks = async () => {
+            const { matchedDrinkNames } = await fetchDrinksByIngredients(filteredIngredients);
+            setDrinks(matchedDrinkNames);
+        };
+
+        fetchDrinks();
     }, [ingredients]);
 
 
-  const addIngredient = (ingredient: string) => {
+
+    const addIngredient = (ingredient: string) => {
     setIngredients((prevState) => [
       ...prevState,
       { name: ingredient, isVisible: true, id: crypto.randomUUID() },
