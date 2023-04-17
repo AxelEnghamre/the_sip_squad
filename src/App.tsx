@@ -149,7 +149,6 @@ console.log(drinkLists);
                 drinkLists.map((drinkList) => {
                     return (
                         <div>
-                            <h1>{drinkList.ingredient.name}</h1>
                             <ul>
                                 {
                                     drinkList.drinks.map((drink: any) => {
