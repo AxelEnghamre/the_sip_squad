@@ -160,7 +160,7 @@ console.log(drinkLists);
                                                         Object.keys(drink.ingredients).map((key) => {
                                                             if (key.startsWith('strIngredient') && drink.ingredients[key]) {
                                                                 return (
-                                                                    <li className={ingredients.find((ingredient) => ingredient.name === drink.ingredients[key]) ? 'text-green-500' : 'text-red-500'}>
+                                                                    <li className={ingredients.find((ingredient) => ingredient.name.toLowerCase() === drink.ingredients[key].toLowerCase()) ? 'text-green-500' : 'text-red-500'}>
                                                                         {drink.ingredients[key]}
                                                                     </li>
                                                                 );
