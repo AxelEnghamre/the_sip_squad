@@ -3,43 +3,77 @@ import IngredientsList from "./components/IngredientsList";
 import InputIngredient from "./components/InputIngredient";
 
 const fetchDrink = async (name: string) => {
-  const API = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
-  const response = await fetch(API + name);
-  const data = await response.json();
+    const API = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
+    const response = await fetch(API + name);
+    const data = await response.json();
 
-  return data;
+    return data;
 };
+
+async function fetchIngredients(drinkId: string) {
+    const response = await fetch(
+        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`
+    );
+    const data = await response.json();
+    return data;
+}
 
 const fetchDrinksByIngredients = async (ingredients: Ingredient[]) => {
-  const drinkLists = await Promise.all(
-      ingredients.map(async (ingredient) => {
-        const drinks = await fetchDrink(ingredient.name);
-        return { ingredient, drinks };
-      })
-  );
+    const drinkLists = await Promise.all(
+        ingredients.map(async (ingredient) => {
+            const drinksResponse = await fetchDrink(ingredient.name);
+            const drinks = drinksResponse.drinks;
+            const drinksWithIngredients = await Promise.all(
+                drinks.map(async (drink: any) => {
+                    const ingredientsResponse = await fetchIngredients(drink.idDrink);
+                    const ingredients = ingredientsResponse.drinks[0];
+                    return { ...drink, ingredients };
+                })
+            );
+            return { ingredient, drinks: drinksWithIngredients };
+        })
+    );
 
-  const drinkNames = drinkLists.map((list) =>
-      list.drinks.drinks.map((drink: any) => drink.strDrink)
-  );
+    const drinkCounts: { [key: string]: number } = {};
+    drinkLists.forEach((list) => {
+        list.drinks.forEach((drink: any) => {
+            if (!drinkCounts[drink.strDrink]) {
+                drinkCounts[drink.strDrink] = 0;
+            }
+            drinkCounts[drink.strDrink]++;
+        });
+    });
 
-  const matchedDrinkNames = drinkNames.reduce((prev, curr) =>
-      prev.filter((name) => curr.includes(name))
-  );
+    const matchedDrinkNames = Object.keys(drinkCounts).sort((a, b) => {
+        return drinkCounts[b] - drinkCounts[a];
+    });
 
-  return matchedDrinkNames;
+    //log the drinks and ingredients
+    drinkLists.forEach((list) => {
+        console.log(list.ingredient.name);
+        list.drinks.forEach((drink: any) => {
+            console.log(drink.strDrink);
+            console.log(drink.ingredients);
+        });
+    });
+
+    return { matchedDrinkNames, drinkLists };
 };
+
 
 const App = () => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [drinks, setDrinks] = useState<string[]>([]);
 
   useEffect(() => {
-    if (ingredients.length > 0) {
-      fetchDrinksByIngredients(ingredients).then((matchedDrinks) => {
-        setDrinks(matchedDrinks);
-      });
-    }
-  }, [ingredients]);
+    const fetchDrinks = async () => {
+        const { matchedDrinkNames } = await fetchDrinksByIngredients(ingredients);
+        setDrinks(matchedDrinkNames);
+    };
+
+    fetchDrinks();
+    }, [ingredients]);
+
 
   const addIngredient = (ingredient: string) => {
     setIngredients((prevState) => [
@@ -93,12 +127,11 @@ const App = () => {
             removeIngredient={removeIngredient}
         />
         <InputIngredient onSubmit={addIngredient} />
+
         <div>
-          {drinks.length > 0 ? (
-              <p>Matched drinks: {drinks.join(", ")}</p>
-          ) : (
-              <p>No matches found</p>
-          )}
+            {drinks.map((drink) => (
+                <div key={drink}>{drink}</div>
+            ))}
         </div>
       </>
   );
