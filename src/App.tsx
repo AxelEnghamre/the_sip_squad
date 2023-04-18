@@ -63,7 +63,21 @@ const fetchDrinksByIngredients = async (ingredients: Ingredient[]) => {
         });
     });
 
+    drinkLists.forEach((list) => {
+        list.drinks = list.drinks.filter((drink: any, index: number) => {
+            if (index === 0) {
+                return true;
+            }
+            return drink.strDrink !== list.drinks[index - 1].strDrink;
+        });
+    });
 
+    drinkLists.forEach((list) => {
+        console.log(list.ingredient.name);
+        list.drinks.forEach((drink: any) => {
+            console.log(drink.strDrink);
+        });
+    });
 
     return { matchedDrinkNames, drinkLists };
 };
@@ -146,30 +160,27 @@ console.log(drinkLists);
         <InputIngredient onSubmit={addIngredient} />
         <div>
             {
-                drinkLists.map((drinkList) => {
+                drinks.map((drink) => {
                     return (
                         <div>
-                            <ul>
+                            <h2 className={"text-3xl"}>{drink}</h2>
+                            <ul className={" list-disc list-inside"}>
                                 {
-                                    drinkList.drinks.map((drink: any) => {
-                                        return (
-                                            <li>
-                                                <h2 className={"text-3xl"}>{drink.strDrink}</h2>
-                                                <ul className={" list-disc list-inside"}>
-                                                    {
-                                                        Object.keys(drink.ingredients).map((key) => {
-                                                            if (key.startsWith('strIngredient') && drink.ingredients[key]) {
-                                                                return (
-                                                                    <li className={ingredients.find((ingredient) => ingredient.name.toLowerCase() === drink.ingredients[key].toLowerCase()) ? 'text-green-500' : 'text-red-500'}>
-                                                                        {drink.ingredients[key]}
-                                                                    </li>
-                                                                );
-                                                            }
-                                                        })
+                                    drinkLists.map((drinkList) => {
+                                        const drinkObject = drinkList.drinks.find((drinkObject: any) => drinkObject.strDrink === drink);
+                                        if (drinkObject) {
+                                            return (
+                                                Object.keys(drinkObject.ingredients).map((key) => {
+                                                    if (key.startsWith('strIngredient') && drinkObject.ingredients[key]) {
+                                                        return (
+                                                            <li className={ingredients.find((ingredient) => ingredient.name.toLowerCase() === drinkObject.ingredients[key].toLowerCase()) ? 'text-green-500' : 'text-red-500'}>
+                                                                {drinkObject.ingredients[key]}
+                                                            </li>
+                                                        );
                                                     }
-                                                </ul>
-                                            </li>
-                                        );
+                                                })
+                                            );
+                                        }
                                     })
                                 }
                             </ul>
@@ -177,6 +188,7 @@ console.log(drinkLists);
                     );
                 })
             }
+
         </div>
       </>
   );
