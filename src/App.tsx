@@ -63,22 +63,6 @@ const fetchDrinksByIngredients = async (ingredients: Ingredient[]) => {
         });
     });
 
-    drinkLists.forEach((list) => {
-        list.drinks = list.drinks.filter((drink: any, index: number) => {
-            if (index === 0) {
-                return true;
-            }
-            return drink.strDrink !== list.drinks[index - 1].strDrink;
-        });
-    });
-
-    drinkLists.forEach((list) => {
-        console.log(list.ingredient.name);
-        list.drinks.forEach((drink: any) => {
-            console.log(drink.strDrink);
-        });
-    });
-
     return { matchedDrinkNames, drinkLists };
 };
 
@@ -149,7 +133,6 @@ const App = () => {
 
     setIngredients(updatedIngredients);
   };
-console.log(drinkLists);
   return (
       <>
         <IngredientsList
