@@ -9,7 +9,8 @@ const DrinkList = ({
   ingredients: Ingredient[];
 }) => {
   return (
-    <motion.ul className="flex flex-row flex-wrap items-center justify-center gap-6">
+    <motion.ul className="flex flex-row flex-wrap items-center justify-center gap-6"
+    >
       <AnimatePresence>
         {drinkList.map((drink) => {
           return (

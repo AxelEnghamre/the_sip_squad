@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 const Drink = ({
   drink,
   ingredients,
@@ -6,11 +7,25 @@ const Drink = ({
   ingredients: Ingredient[];
 }) => {
   return (
-    <li
+    <motion.li
       className=" h-fit w-fit rounded-xl bg-celestial-blue p-4"
       key={crypto.randomUUID()}
+      whileDrag={{ scale: 1.1 }}
+        drag
+      whileHover={{ scale: 1.1, transition: { duration: 0.2 }, cursor: "grab", }}
+      whileTap={{ scale: 0.9, transition: { duration: 0.2 }, cursor: "grabbing", }}
+      whileFocus={{ scale: 1.1, transition: { duration: 0.2 }, cursor: "grab", }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
     >
       <h3 className="text-xl text-bright-pink">{drink.strDrink}</h3>
+        <img
+            src={drink.strDrinkThumb}
+            alt={drink.strDrink}
+            className="w-32 h-32 rounded-xl"
+            draggable="false"
+        />
       <ul className="flex flex-col gap-2">
         {Object.keys(drink.ingredients).map((key) => {
           if (key.startsWith("strIngredient") && drink.ingredients[key]) {
@@ -43,7 +58,7 @@ const Drink = ({
           }
         })}
       </ul>
-    </li>
+    </motion.li>
   );
 };
 

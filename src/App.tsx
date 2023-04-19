@@ -47,16 +47,45 @@ const App = () => {
     let drinks: any = [];
 
     allDrinks.forEach((drink: any) => {
-      let unique = true;
-      drinks.forEach((sortedDrink: any) => {
-        if (drink.idDrink === sortedDrink.idDrink) {
-          unique = false;
+        if (!drinks.find((d: any) => d.idDrink === drink.idDrink)) {
+            drinks.push(drink);
         }
-      });
+    });
 
-      if (unique) {
-        drinks.push(drink);
-      }
+    allDrinks.sort((a: any, b: any) => {
+        const aIngredients = Object.keys(a.ingredients).filter((key) =>
+            key.startsWith("strIngredient")
+        );
+        const bIngredients = Object.keys(b.ingredients).filter((key) =>
+            key.startsWith("strIngredient")
+        );
+
+        let aCount = 0;
+        let bCount = 0;
+
+        aIngredients.forEach((ingredient) => {
+            visibleIngredients.forEach((visibleIngredient) => {
+            if (a.ingredients[ingredient] === visibleIngredient.name) {
+                aCount++;
+            }
+            });
+        });
+
+        bIngredients.forEach((ingredient) => {
+            visibleIngredients.forEach((visibleIngredient) => {
+            if (b.ingredients[ingredient] === visibleIngredient.name) {
+                bCount++;
+            }
+            });
+        });
+
+        if (aCount > bCount) {
+            return -1;
+        }
+        if (aCount < bCount) {
+            return 1;
+        }
+        return 0;
     });
 
     setDrinkLists(allDrinks);
