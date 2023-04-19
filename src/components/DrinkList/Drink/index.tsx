@@ -17,24 +17,33 @@ const Drink = ({
                         key.startsWith("strIngredient") &&
                         drink.ingredients[key]
                     ) {
+
+                        const hasIngredient = ingredients.find((ingredient) => {
+                            if (
+                                ingredient.name.toLowerCase() ===
+                                drink.ingredients[key].toLowerCase()
+                            ) {
+                                if (ingredient.isVisible) {
+                                    return 1;
+                                }
+                                return 2;
+                            }
+                        });
+                        let color = "text-black";
+                        if (hasIngredient) {
+                            if (hasIngredient.isVisible) {
+                                color = "text-green-500";
+                            }
+                            else {
+                                color = "text-yellow-500";
+                            }
+                        }
+
+
                         return (
                             <li
                                 key={crypto.randomUUID()}
-                                className={
-                                    ingredients.find((ingredient) => {
-                                        if (
-                                            ingredient.name.toLowerCase() ===
-                                            drink.ingredients[key].toLowerCase()
-                                        ) {
-                                            if (ingredient.isVisible) {
-                                                return 1;
-                                            }
-                                            return 2;
-                                        }
-                                    })
-                                        ? "text-green-500"
-                                        : "text-black"
-                                }
+                                className={color}
                             >
                                 {drink.ingredients[key]} -{" "}
                                 {
@@ -45,6 +54,7 @@ const Drink = ({
                             </li>
                         );
                     }
+
                 })}
             </ul>
         </li>
