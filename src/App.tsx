@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import IngredientsList from "./components/IngredientsList";
 import InputIngredient from "./components/InputIngredient";
+import DrinkList from "./components/DrinkList";
 
 const fetchDrink = async (name: string) => {
   const API = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
@@ -57,6 +58,8 @@ const App = () => {
         drinks.push(drink);
       }
     });
+
+
 
     setDrinkLists(allDrinks);
   }, [ingredients]);
@@ -119,55 +122,7 @@ const App = () => {
         removeIngredient={removeIngredient}
       />
       <InputIngredient onSubmit={addIngredient} />
-
-      <ul className="flex flex-row flex-wrap items-center justify-center gap-6">
-        {drinkLists.map((drink) => {
-          return (
-            <li
-              className=" h-fit w-fit rounded-xl bg-celestial-blue p-4"
-              key={crypto.randomUUID()}
-            >
-              <h3 className="text-xl text-bright-pink">{drink.strDrink}</h3>
-              <ul className="flex flex-col gap-2">
-                {Object.keys(drink.ingredients).map((key) => {
-                  if (
-                    key.startsWith("strIngredient") &&
-                    drink.ingredients[key]
-                  ) {
-                    return (
-                      <li
-                        key={crypto.randomUUID()}
-                        className={
-                          ingredients.find((ingredient) => {
-                            if (
-                              ingredient.name.toLowerCase() ===
-                              drink.ingredients[key].toLowerCase()
-                            ) {
-                              if (ingredient.isVisible) {
-                                return 1;
-                              }
-                              return 2;
-                            }
-                          })
-                            ? "text-green-500"
-                            : "text-black"
-                        }
-                      >
-                        {drink.ingredients[key]} -{" "}
-                        {
-                          drink.ingredients[
-                            key.replace("strIngredient", "strMeasure")
-                          ]
-                        }
-                      </li>
-                    );
-                  }
-                })}
-              </ul>
-            </li>
-          );
-        })}
-      </ul>
+      <DrinkList drinkList={drinkLists} ingredients={ingredients} />
     </>
   );
 };
