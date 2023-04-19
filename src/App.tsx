@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import DrinkList from "./components/DrinkList";
 import IngredientsList from "./components/IngredientsList";
 import InputIngredient from "./components/InputIngredient";
-import DrinkList from "./components/DrinkList";
 
 const fetchDrink = async (name: string) => {
   const API = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
@@ -58,8 +58,6 @@ const App = () => {
         drinks.push(drink);
       }
     });
-
-
 
     setDrinkLists(allDrinks);
   }, [ingredients]);
