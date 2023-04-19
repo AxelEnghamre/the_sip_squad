@@ -40,7 +40,7 @@ const Drink = ({
             });
             let color = "text-zinc-700";
             if (hasIngredient) {
-              color = hasIngredient.isVisible ? "text-green-500" : "text-yellow-500";
+              color = hasIngredient && typeof hasIngredient === 'object' && hasIngredient.isVisible ? "text-green-500" : "text-yellow-500";
             }
             return (
                 <li key={crypto.randomUUID()} className={color}>
