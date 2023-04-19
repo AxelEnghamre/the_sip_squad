@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import _, {find, map} from "lodash";
 const Drink = ({
   drink,
   ingredients,
@@ -27,35 +28,25 @@ const Drink = ({
             draggable="false"
         />
       <ul className="flex flex-col gap-2">
-        {Object.keys(drink.ingredients).map((key) => {
-          if (key.startsWith("strIngredient") && drink.ingredients[key]) {
-            const hasIngredient = ingredients.find((ingredient) => {
-              if (
-                ingredient.name.toLowerCase() ===
-                drink.ingredients[key].toLowerCase()
-              ) {
-                if (ingredient.isVisible) {
-                  return 1;
-                }
-                return 2;
-              }
+        {map(drink.ingredients, (value, key) => {
+          if (key.startsWith("strIngredient") && value) {
+            const hasIngredient = find(ingredients, (ingredient) => {
+              return (
+                  ingredient.name.toLowerCase() === value.toLowerCase() &&
+                  (ingredient.isVisible ? 1 : 2)
+              );
             });
             let color = "text-black";
             if (hasIngredient) {
-              if (hasIngredient.isVisible) {
-                color = "text-green-500";
-              } else {
-                color = "text-yellow-500";
-              }
+              color = hasIngredient.isVisible ? "text-green-500" : "text-yellow-500";
             }
-
             return (
-              <li key={crypto.randomUUID()} className={color}>
-                {drink.ingredients[key]} -{" "}
-                {drink.ingredients[key.replace("strIngredient", "strMeasure")]}
-              </li>
+                <li key={crypto.randomUUID()} className={color}>
+                  {value} - {drink.ingredients[key.replace("strIngredient", "strMeasure")]}
+                </li>
             );
           }
+          return null;
         })}
       </ul>
     </motion.li>
