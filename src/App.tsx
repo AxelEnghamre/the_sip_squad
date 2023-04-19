@@ -72,6 +72,7 @@ const App = () => {
     const [drinks, setDrinks] = useState<string[]>([]);
     const [drinkLists, setDrinkLists] = useState<any[]>([]);
 
+
     useEffect(() => {
         const fetchDrinkLists = async () => {
             const { matchedDrinkNames, drinkLists } = await fetchDrinksByIngredients(filteredIngredients);
@@ -157,7 +158,7 @@ const App = () => {
                                                     if (key.startsWith('strIngredient') && drinkObject.ingredients[key]) {
                                                         return (
                                                             <li className={ingredients.find((ingredient) => ingredient.name.toLowerCase() === drinkObject.ingredients[key].toLowerCase()) ? 'text-green-500' : 'text-red-500'}>
-                                                                {drinkObject.ingredients[key]}
+                                                                {drinkObject.ingredients[key]} - {drinkObject.ingredients[key.replace('strIngredient', 'strMeasure')]}
                                                             </li>
                                                         );
                                                     }
