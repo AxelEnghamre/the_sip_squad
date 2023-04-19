@@ -9,7 +9,7 @@ const Drink = ({
 }) => {
   return (
     <motion.li
-      className=" flex flex-row flex-wrap items-center gap-6 w-1/2 bg-zinc-100 rounded-xl p-4 shadow-lg"
+      className=" flex flex-row flex-wrap items-center gap-6 w-full m-4 md:w-1/2 bg-zinc-100 rounded-xl p-4 shadow-lg"
       key={crypto.randomUUID()}
       whileDrag={{ scale: 1.1 }}
         drag
@@ -23,7 +23,7 @@ const Drink = ({
       <img
           src={drink.strDrinkThumb}
           alt={drink.strDrink}
-          className="w-64 h-full rounded-xl shadow-lg object-cover object-center"
+          className="w-full md:w-64 h-full rounded-xl shadow-lg object-cover object-center"
           draggable="false"
       />
       <div className="flex flex-col gap-2">
