@@ -9,7 +9,7 @@ const Drink = ({
 }) => {
   return (
     <motion.li
-      className=" h-fit w-fit rounded-xl bg-celestial-blue p-4"
+      className=" flex flex-row flex-wrap items-center gap-6 w-1/2 bg-zinc-100 rounded-xl p-4 shadow-lg"
       key={crypto.randomUUID()}
       whileDrag={{ scale: 1.1 }}
         drag
@@ -20,13 +20,15 @@ const Drink = ({
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
     >
-      <h3 className="text-xl text-bright-pink">{drink.strDrink}</h3>
-        <img
-            src={drink.strDrinkThumb}
-            alt={drink.strDrink}
-            className="w-32 h-32 rounded-xl"
-            draggable="false"
-        />
+      <img
+          src={drink.strDrinkThumb}
+          alt={drink.strDrink}
+          className="w-64 h-full rounded-xl shadow-lg object-cover object-center"
+          draggable="false"
+      />
+      <div className="flex flex-col gap-2">
+      <h3 className="text-3xl text-zinc-950 font-medium">{drink.strDrink}</h3>
+
       <ul className="flex flex-col gap-2">
         {map(drink.ingredients, (value, key) => {
           if (key.startsWith("strIngredient") && value) {
@@ -36,7 +38,7 @@ const Drink = ({
                   (ingredient.isVisible ? 1 : 2)
               );
             });
-            let color = "text-black";
+            let color = "text-zinc-700";
             if (hasIngredient) {
               color = hasIngredient.isVisible ? "text-green-500" : "text-yellow-500";
             }
@@ -49,6 +51,7 @@ const Drink = ({
           return null;
         })}
       </ul>
+        </div>
     </motion.li>
   );
 };
