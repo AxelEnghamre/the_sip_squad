@@ -121,17 +121,20 @@ const App = () => {
   };
 
   return (
-    <>
-      <div className="grid h-screen grid-cols-1 gap-4 overflow-hidden md:grid-cols-2">
+    <div className="flex h-screen w-screen snap-x flex-row gap-4 overflow-y-hidden overflow-x-scroll">
+      <div className="min-w-full snap-center md:w-96 md:min-w-0">
+        <DrinkList drinkList={drinkLists} ingredients={ingredients} />
+      </div>
+
+      <div className="min-w-full snap-center md:w-96 md:min-w-0">
         <IngredientsList
           ingredients={ingredients}
           toggleIngredientVisibility={toggleIngredientVisibility}
           removeIngredient={removeIngredient}
         />
         <InputIngredient onSubmit={addIngredient} />
-        <DrinkList drinkList={drinkLists} ingredients={ingredients} />
       </div>
-    </>
+    </div>
   );
 };
 
