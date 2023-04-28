@@ -1,8 +1,8 @@
+import _ from "lodash";
 import { useEffect, useState } from "react";
 import DrinkList from "./components/DrinkList";
 import IngredientsList from "./components/IngredientsList";
 import InputIngredient from "./components/InputIngredient";
-import _ from "lodash";
 
 const fetchDrink = async (name: string) => {
   const API = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
@@ -10,16 +10,15 @@ const fetchDrink = async (name: string) => {
   const data = await response.json();
 
   const drinks = data.drinks;
-    const drinksWithIngredients = await Promise.all(
-        _.map(drinks, async (drink: any) => {
-            const ingredientsResponse = await fetchIngredients(drink.idDrink);
-            const ingredients = ingredientsResponse.drinks[0];
-            return { ...drink, ingredients };
-        })
-    );
+  const drinksWithIngredients = await Promise.all(
+    _.map(drinks, async (drink: any) => {
+      const ingredientsResponse = await fetchIngredients(drink.idDrink);
+      const ingredients = ingredientsResponse.drinks[0];
+      return { ...drink, ingredients };
+    })
+  );
 
-
-    return drinksWithIngredients;
+  return drinksWithIngredients;
 };
 
 async function fetchIngredients(drinkId: string) {
@@ -48,29 +47,28 @@ const App = () => {
 
     allDrinks = _.uniqBy(allDrinks, "idDrink");
 
-      allDrinks = _.sortBy(allDrinks, (drink) => {
-        let count = 0;
-        Object.keys(drink.ingredients).forEach((key) => {
-          if (key.startsWith("strIngredient") && drink.ingredients[key]) {
-            const hasIngredient = visibleIngredients.find((ingredient) => {
-              if (
-                ingredient.name.toLowerCase() ===
-                drink.ingredients[key].toLowerCase()
-              ) {
-                if (ingredient.isVisible) {
-                  return 1;
-                }
-                return 2;
+    allDrinks = _.sortBy(allDrinks, (drink) => {
+      let count = 0;
+      Object.keys(drink.ingredients).forEach((key) => {
+        if (key.startsWith("strIngredient") && drink.ingredients[key]) {
+          const hasIngredient = visibleIngredients.find((ingredient) => {
+            if (
+              ingredient.name.toLowerCase() ===
+              drink.ingredients[key].toLowerCase()
+            ) {
+              if (ingredient.isVisible) {
+                return 1;
               }
-            });
-            if (hasIngredient) {
-              count++;
+              return 2;
             }
+          });
+          if (hasIngredient) {
+            count++;
           }
-        });
-        return count;
-      }).reverse();
-
+        }
+      });
+      return count;
+    }).reverse();
 
     setDrinkLists(allDrinks);
   }, [ingredients]);
@@ -89,8 +87,7 @@ const App = () => {
   };
 
   const toggleIngredientVisibility = (id: string) => {
-      const foundIndexKey = _.findIndex(ingredients, { id: id }
-  );
+    const foundIndexKey = _.findIndex(ingredients, { id: id });
 
     const updatedIngredients = ingredients.map((ingredient, index) => {
       if (index === foundIndexKey) {
@@ -109,8 +106,7 @@ const App = () => {
   };
 
   const removeIngredient = (id: string) => {
-    const foundIndexKey = _.findIndex(ingredients, { id: id }
-    );
+    const foundIndexKey = _.findIndex(ingredients, { id: id });
 
     const temp = [...ingredients];
 
@@ -123,15 +119,18 @@ const App = () => {
 
     setIngredients(updatedIngredients);
   };
+
   return (
     <>
-      <IngredientsList
-        ingredients={ingredients}
-        toggleIngredientVisibility={toggleIngredientVisibility}
-        removeIngredient={removeIngredient}
-      />
-      <InputIngredient onSubmit={addIngredient} />
-      <DrinkList drinkList={drinkLists} ingredients={ingredients} />
+      <div className="grid h-screen grid-cols-1 gap-4 overflow-hidden md:grid-cols-2">
+        <IngredientsList
+          ingredients={ingredients}
+          toggleIngredientVisibility={toggleIngredientVisibility}
+          removeIngredient={removeIngredient}
+        />
+        <InputIngredient onSubmit={addIngredient} />
+        <DrinkList drinkList={drinkLists} ingredients={ingredients} />
+      </div>
     </>
   );
 };

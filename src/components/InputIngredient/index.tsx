@@ -45,9 +45,9 @@ const InputIngredient = ({
   };
 
   return (
-    <div className="flex h-14 w-full flex-row justify-center gap-2 rounded-xl p-1">
+    <div className="flex h-14 flex-row justify-center gap-2 rounded-xl p-1">
       <input
-        className="w-9/12 rounded-xl bg-zinc-100 p-2 text-charcoal shadow-md transition duration-200 placeholder:text-zinc-500 hover:bg-slate-100 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-bright-pink focus:ring-opacity-50"
+        className="w-9/12 rounded-xl bg-zinc-100 p-2 text-charcoal shadow-md transition duration-200 placeholder:text-zinc-500 hover:bg-slate-100 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:ring-opacity-50"
         type="text"
         onChange={handleChange}
         onKeyUp={handleKeyUp}
@@ -55,7 +55,7 @@ const InputIngredient = ({
         placeholder="Enter Ingredient"
       />
       <button
-        className="hover:text-bold ml-2 h-full w-1/12 rounded-xl bg-zinc-800 text-slate-100 transition-colors duration-200 hover:bg-zinc-700 hover:text-teal-300"
+        className="hover:text-bold ml-2 h-full w-2/12 rounded-xl bg-zinc-800 text-slate-100 transition-colors duration-200 hover:bg-zinc-700 hover:text-teal-300"
         title={
           value.length + 1 > minimumLength && value.length - 1 < maximumLength
             ? `add ${value}`
