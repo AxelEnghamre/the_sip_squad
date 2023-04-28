@@ -13,7 +13,11 @@ const Drink = ({
       key={crypto.randomUUID()}
       /* whileDrag={{ scale: 1.1 }}
       drag */
-      whileHover={{ scale: 1.1, transition: { duration: 0.2 }, cursor: "grab" }}
+      whileHover={{
+        scale: 1.1,
+        transition: { duration: 0.2 },
+        cursor: "pointer",
+      }}
       /* whileTap={{
         scale: 0.9,
         transition: { duration: 0.2 },
@@ -23,7 +27,7 @@ const Drink = ({
       whileTap={{
         scale: 0.9,
         transition: { duration: 0.2 },
-        cursor: "grabbing",
+        cursor: "pointer",
       }}
       whileFocus={{ scale: 1.1, transition: { duration: 0.2 }, cursor: "grab" }}
       initial={{ opacity: 0 }}

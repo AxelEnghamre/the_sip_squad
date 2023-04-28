@@ -24,6 +24,7 @@ const ListItem = ({
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0, transition: { duration: 0 } }}
       transition={{ type: "spring" }}
+      initial={{ scale: 0.8, opacity: 0 }}
     >
       <div
         onClick={handleVisibility}
@@ -32,13 +33,8 @@ const ListItem = ({
         <input
           type="checkbox"
           checked={ingredient.isVisible}
-          onChange={() => {}}
-          title={
-            ingredient.isVisible
-              ? `Hide results from ${ingredient.name}`
-              : `Show results from ${ingredient.name}`
-          }
-          className="h-full w-8 appearance-none rounded-lg border-4 bg-zinc-800 transition duration-200 checked:translate-x-8 checked:bg-teal-300 hover:cursor-pointer hover:bg-zinc-700"
+          onChange={handleVisibility}
+          className="h-full w-8 appearance-none rounded-lg border-4 bg-zinc-800 transition duration-100 checked:translate-x-8 checked:bg-teal-400 hover:cursor-pointer hover:bg-zinc-700"
         />
       </div>
       <span
@@ -54,7 +50,7 @@ const ListItem = ({
         type="submit"
         title={`Remove ${ingredient.name}`}
         onClick={handleSubmit}
-        className="hover:text-bold h-full w-8 rounded-lg bg-zinc-800 text-slate-100 transition-colors duration-200 hover:bg-zinc-700 hover:text-teal-300"
+        className="hover:text-bold h-full w-16 rounded-lg bg-zinc-800 text-slate-100 transition-colors duration-200 hover:bg-zinc-700 hover:text-teal-300"
       >
         -
       </button>
