@@ -12,7 +12,7 @@ const IngredientsList = ({
 }) => {
   return (
     <motion.ul className="flex h-fit w-full flex-col gap-2">
-      <AnimatePresence>
+      <AnimatePresence mode="popLayout">
         {ingredients.map((ingredient) => {
           return (
             <ListItem

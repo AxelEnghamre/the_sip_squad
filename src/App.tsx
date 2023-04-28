@@ -127,12 +127,12 @@ const App = () => {
       </div>
 
       <div className="min-w-full snap-center md:w-96 md:min-w-0">
+        <InputIngredient onSubmit={addIngredient} />
         <IngredientsList
           ingredients={ingredients}
           toggleIngredientVisibility={toggleIngredientVisibility}
           removeIngredient={removeIngredient}
         />
-        <InputIngredient onSubmit={addIngredient} />
       </div>
     </div>
   );

@@ -20,10 +20,10 @@ const ListItem = ({
   return (
     <motion.li
       className="relative flex h-14 w-full flex-row justify-between gap-2 overflow-hidden rounded-xl bg-zinc-100 p-2 shadow-md"
-      initial={{ opacity: 0 }}
-      animate={{ scale: [0.95, 1.04, 1], opacity: 1 }}
-      exit={{ scale: [1, 1.03, 0.8], height: 0, margin: -10, opacity: 0 }}
-      transition={{ duration: 0.2 }}
+      layout
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.8, opacity: 0 }}
+      transition={{ type: "spring" }}
     >
       <div
         onClick={handleVisibility}
