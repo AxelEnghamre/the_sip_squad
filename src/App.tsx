@@ -121,7 +121,7 @@ const App = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen snap-x flex-row gap-4 overflow-y-hidden overflow-x-scroll">
+    <div className="flex h-screen w-screen snap-x snap-mandatory flex-row gap-4 overflow-y-hidden overflow-x-scroll">
       <div className="min-w-full snap-center md:w-96 md:min-w-0">
         <DrinkList drinkList={drinkLists} ingredients={ingredients} />
       </div>
