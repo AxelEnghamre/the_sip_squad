@@ -23,7 +23,7 @@ const InputIngredient = ({
     }
     // If the key is esc reset the value
     if (event.key === "Escape") {
-     setValue("");
+      setValue("");
     }
   };
 
@@ -45,9 +45,9 @@ const InputIngredient = ({
   };
 
   return (
-    <div className="flex h-14 w-full flex-row justify-between gap-2 rounded-xl bg-bright-pink p-2">
+    <div className="flex h-14 w-full flex-row justify-between gap-2 rounded-xl bg-zinc-200 p-1 shadow-sm">
       <input
-        className="w-full rounded-l-lg bg-pale-dogwood p-2 text-charcoal placeholder:text-bright-pink"
+        className="w-full rounded-l-lg bg-white p-2 text-charcoal transition-colors duration-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-bright-pink focus:ring-opacity-50"
         type="text"
         onChange={handleChange}
         onKeyUp={handleKeyUp}
@@ -55,7 +55,7 @@ const InputIngredient = ({
         placeholder="Enter Ingredient"
       />
       <button
-        className="h-full w-8 rounded-r-lg bg-pale-dogwood text-charcoal transition-colors duration-200 hover:text-bright-pink"
+        className="hover:text-bold h-full w-8 rounded-r-lg bg-slate-100 text-charcoal transition-colors duration-200 hover:bg-zinc-300 hover:text-bright-pink"
         title={
           value.length + 1 > minimumLength && value.length - 1 < maximumLength
             ? `add ${value}`
