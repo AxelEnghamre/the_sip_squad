@@ -20,9 +20,10 @@ const ListItem = ({
   return (
     <motion.li
       className="relative flex h-14 w-full flex-row justify-between gap-2 overflow-hidden rounded-xl bg-bright-pink p-2"
-      initial={{ opacity: 0, height: 0 }}
-      animate={{ scale: [0.95, 1.01, 1], height: 56, opacity: 1 }}
-      exit={{ scale: [1, 1.01, 0.8], height: 0, margin: -10, opacity: 0 }}
+      layout
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.5 }}
     >
       <input
