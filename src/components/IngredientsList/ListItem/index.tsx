@@ -22,7 +22,7 @@ const ListItem = ({
       className="relative flex h-14 w-full flex-row justify-between gap-2 overflow-hidden rounded-xl bg-zinc-100 p-2 shadow-md"
       layout
       animate={{ scale: 1, opacity: 1 }}
-      exit={{ scale: 0.8, opacity: 0 }}
+      exit={{ scale: 0.8, opacity: 0, transition: { duration: 0 } }}
       transition={{ type: "spring" }}
     >
       <div
