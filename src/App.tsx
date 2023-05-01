@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { useEffect, useState } from "react";
 import DrinkList from "./components/DrinkList";
+import Header from "./components/Header";
 import IngredientsList from "./components/IngredientsList";
 import InputIngredient from "./components/InputIngredient";
 
@@ -120,13 +121,27 @@ const App = () => {
     setIngredients(updatedIngredients);
   };
 
+  const [currentPage, setCurrentPage] = useState<string>("drinks");
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (e.currentTarget.scrollLeft < window.innerWidth / 2) {
+      setCurrentPage("drinks");
+    } else {
+      setCurrentPage("ingredients");
+    }
+  };
+
   return (
-    <div className="flex h-screen w-screen snap-x snap-mandatory flex-row gap-4 overflow-y-hidden overflow-x-scroll">
+    <div
+      className="flex h-screen w-screen snap-x snap-mandatory flex-row gap-4 overflow-y-hidden overflow-x-scroll"
+      onScroll={handleScroll}
+    >
+      <Header currentPage={currentPage} />
       <div className="min-w-full snap-center md:w-96 md:min-w-0">
         <DrinkList drinkList={drinkLists} ingredients={ingredients} />
       </div>
 
-      <div className="flex min-w-full snap-center flex-col gap-8 md:w-96 md:min-w-0">
+      <div className="flex min-w-full snap-center flex-col gap-8 pt-24 md:w-96 md:min-w-0">
         <InputIngredient onSubmit={addIngredient} />
         <IngredientsList
           ingredients={ingredients}
