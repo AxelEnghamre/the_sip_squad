@@ -9,7 +9,7 @@ const Drink = ({
 }) => {
   return (
     <motion.li
-      className=" z-10 m-4 flex w-full flex-row flex-wrap items-center gap-6 rounded-xl bg-zinc-100 p-4 shadow-lg md:w-full"
+      className=" z-10 m-4 flex w-full flex-row flex-wrap items-center gap-6 rounded-xl bg-zinc-100 p-4 shadow-lg md:w-2/3"
       key={crypto.randomUUID()}
       /* whileDrag={{ scale: 1.1 }}
       drag */
@@ -37,11 +37,13 @@ const Drink = ({
       <img
         src={drink.strDrinkThumb}
         alt={drink.strDrink}
-        className="h-full w-full rounded-xl object-cover object-center shadow-lg md:w-64"
+        className="h-full w-full rounded-xl object-cover object-center shadow-lg md:w-72"
         draggable="false"
       />
       <div className="flex flex-col gap-2">
-        <h3 className="text-3xl font-medium text-zinc-950">{drink.strDrink}</h3>
+        <h3 className="w-60 text-3xl font-medium text-zinc-950">
+          {drink.strDrink}
+        </h3>
 
         <ul className="flex flex-col gap-2">
           {map(drink.ingredients, (value, key) => {

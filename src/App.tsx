@@ -137,11 +137,11 @@ const App = () => {
       onScroll={handleScroll}
     >
       <Header currentPage={currentPage} />
-      <div className="min-w-full snap-center md:w-96 md:min-w-0">
+      <div className="min-w-full snap-center md:w-2/3 md:min-w-0">
         <DrinkList drinkList={drinkLists} ingredients={ingredients} />
       </div>
 
-      <div className="flex min-w-full snap-center flex-col gap-8 pt-24 md:w-96 md:min-w-0">
+      <div className="flex min-w-full snap-center flex-col gap-8 bg-zinc-50 pt-24 md:w-1/3 md:min-w-0 md:px-8">
         <InputIngredient onSubmit={addIngredient} />
         <IngredientsList
           ingredients={ingredients}

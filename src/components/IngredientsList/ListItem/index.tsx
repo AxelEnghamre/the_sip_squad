@@ -21,6 +21,7 @@ const ListItem = ({
     <motion.li
       className="relative flex h-14 w-full flex-row justify-between gap-2 overflow-hidden rounded-xl bg-zinc-100 p-2 shadow-md"
       layout
+      whileHover={{ scale: 1.05 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0, transition: { duration: 0 } }}
       transition={{ type: "spring" }}
@@ -30,7 +31,8 @@ const ListItem = ({
         onClick={handleVisibility}
         className="flex h-full w-16 flex-row rounded-lg bg-zinc-200 hover:cursor-pointer"
       >
-        <input
+        <motion.input
+          transition={{ type: "spring" }}
           type="checkbox"
           checked={ingredient.isVisible}
           onChange={handleVisibility}
@@ -40,7 +42,7 @@ const ListItem = ({
       <span
         className={`grow p-2 transition-colors  duration-200  ${
           ingredient.isVisible
-            ? "text-bright-pink"
+            ? "text-zinc-900"
             : "text-pale-dogwood line-through"
         }`}
       >
