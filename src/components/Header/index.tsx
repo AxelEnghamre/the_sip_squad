@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
     },
   };
   return (
-    <div className="fixed left-0 right-0 top-0 z-50 mx-auto flex h-fit w-64 flex-col gap-4 rounded-3xl bg-white px-8 py-3 shadow-md md:hidden">
+    <div className="fixed left-0 right-0 top-0 z-50 mx-auto mt-2 flex h-fit w-64 flex-col gap-4 rounded-3xl bg-slate-50 px-8 py-3 shadow-md md:hidden">
       <div className="relative flex w-full items-center justify-between">
         <motion.h1
           className="text-xl font-bold"
