@@ -14,7 +14,7 @@ const Drink = ({
 }) => {
   return (
     <motion.li
-      className=" z-10 m-4 flex w-full flex-row flex-wrap items-center gap-6 rounded-xl bg-zinc-100 p-4 shadow-lg md:w-2/3"
+      className="z-10 m-4 flex w-full max-w-4xl flex-row flex-wrap items-center gap-6 rounded-xl bg-zinc-100 p-4 shadow-lg md:w-10/12 md:flex-row"
       key={crypto.randomUUID()}
       /* whileDrag={{ scale: 1.1 }}
       drag */
