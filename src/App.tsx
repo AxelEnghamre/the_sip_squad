@@ -141,7 +141,7 @@ const App = () => {
         <DrinkList drinkList={drinkLists} ingredients={ingredients} />
       </div>
 
-      <div className="flex min-w-full snap-center flex-col gap-8 bg-zinc-50 pt-24 md:w-1/3 md:min-w-0 md:px-8">
+      <div className="flex min-w-full snap-center flex-col gap-8 bg-zinc-50 pt-24 md:w-1/3 md:min-w-0 md:px-8 md:shadow-md">
         <InputIngredient onSubmit={addIngredient} />
         <IngredientsList
           ingredients={ingredients}

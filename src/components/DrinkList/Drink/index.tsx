@@ -1,5 +1,10 @@
 import { motion } from "framer-motion";
 import { find, map } from "lodash";
+
+function isIngredient(obj: any): obj is Ingredient {
+  return obj && typeof obj === "object" && "isVisible" in obj;
+}
+
 const Drink = ({
   drink,
   ingredients,
@@ -55,13 +60,10 @@ const Drink = ({
                 );
               });
               let color = "text-zinc-700";
-              if (hasIngredient) {
-                color =
-                  hasIngredient &&
-                  typeof hasIngredient === "object" &&
-                  hasIngredient.isVisible
-                    ? "text-green-500"
-                    : "text-yellow-500";
+              if (hasIngredient && isIngredient(hasIngredient)) {
+                color = hasIngredient.isVisible
+                  ? "text-green-500"
+                  : "text-yellow-500";
               }
               return (
                 <li key={crypto.randomUUID()} className={color}>
