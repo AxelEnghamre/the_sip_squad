@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DrinkList from "./components/DrinkList";
 import Header from "./components/Header";
 import IngredientsList from "./components/IngredientsList";
@@ -33,6 +33,8 @@ async function fetchIngredients(drinkId: string) {
 const App = () => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [drinkLists, setDrinkLists] = useState<any[]>([]);
+  const drinksRef = useRef<null | HTMLDivElement>(null);
+  const ingredientsRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
     const visibleIngredients = ingredients.filter((ingredient) => {
@@ -136,12 +138,34 @@ const App = () => {
       className="flex h-screen w-screen snap-x snap-mandatory flex-row gap-4 overflow-y-hidden overflow-x-scroll"
       onScroll={handleScroll}
     >
-      <Header currentPage={currentPage} />
-      <div className="min-w-full snap-center md:w-2/3 md:min-w-0">
+      <Header
+        currentPage={currentPage}
+        ingredientsScrollHandler={() => {
+          ingredientsRef.current &&
+            ingredientsRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+        }}
+        drinksScrollHandler={() => {
+          drinksRef.current &&
+            drinksRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+        }}
+      />
+      <div
+        className="min-w-full snap-center md:w-2/3 md:min-w-0"
+        ref={drinksRef}
+      >
         <DrinkList drinkList={drinkLists} ingredients={ingredients} />
       </div>
 
-      <div className="flex min-w-full snap-center flex-col gap-8 bg-zinc-50 pt-24 md:w-1/3 md:min-w-0 md:px-8 md:shadow-md">
+      <div
+        className="flex min-w-full snap-center flex-col gap-8 bg-zinc-50 pt-24 md:w-1/3 md:min-w-0 md:px-8 md:shadow-md"
+        ref={ingredientsRef}
+      >
         <InputIngredient onSubmit={addIngredient} />
         <IngredientsList
           ingredients={ingredients}

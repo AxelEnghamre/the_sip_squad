@@ -3,8 +3,16 @@ import { motion } from "framer-motion";
 type HeaderProps = {
   currentPage: string;
 };
-
-const Header: React.FC<HeaderProps> = ({ currentPage }) => {
+// React.FC<HeaderProps>
+const Header = ({
+  currentPage,
+  ingredientsScrollHandler,
+  drinksScrollHandler,
+}: {
+  currentPage: string;
+  ingredientsScrollHandler: Function;
+  drinksScrollHandler: Function;
+}) => {
   const variants = {
     drinks: {
       width: "32%",
@@ -24,6 +32,9 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
             color: currentPage === "drinks" ? "#000000" : "#9CA3AF",
           }}
           transition={{ duration: 0.2 }}
+          onClick={() => {
+            drinksScrollHandler();
+          }}
         >
           Drinks
         </motion.h1>
@@ -33,6 +44,9 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
             color: currentPage === "ingredients" ? "#000000" : "#9CA3AF",
           }}
           transition={{ duration: 0.2 }}
+          onClick={() => {
+            ingredientsScrollHandler();
+          }}
         >
           Ingredients
         </motion.h1>
