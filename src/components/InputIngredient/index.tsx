@@ -4,10 +4,12 @@ const InputIngredient = ({
   onSubmit,
   minimumLength = 2,
   maximumLength = 20,
+  setError,
 }: {
   onSubmit: Function;
   minimumLength?: number;
   maximumLength?: number;
+  setError: Function;
 }) => {
   const [value, setValue] = useState("");
 
@@ -30,16 +32,13 @@ const InputIngredient = ({
   // Validate the value before submit
   const handleSubmit = () => {
     if (value.length < minimumLength) {
-      alert(`The ingredient must contain at least ${minimumLength} characters`);
+      setError(`Enter at least ${minimumLength} characters`);
       return;
     }
     if (value.length > maximumLength) {
-      alert(
-        `The ingredient can't contain more than ${maximumLength} characters`
-      );
+      setError(`Too long, maximum ${maximumLength} characters`);
       return;
     }
-    // submit and reset the value
     onSubmit(value);
     setValue("");
   };

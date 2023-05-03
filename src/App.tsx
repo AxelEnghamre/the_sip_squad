@@ -33,6 +33,19 @@ async function fetchIngredients(drinkId: string) {
 const App = () => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [drinkLists, setDrinkLists] = useState<any[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const clearErrorMessage = () => {
+    setErrorMessage(null);
+  };
+
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      clearErrorMessage();
+    }, 3000);
+    return () => clearTimeout(timeOut);
+  }, [errorMessage]);
+
   const drinksRef = useRef<null | HTMLDivElement>(null);
   const ingredientsRef = useRef<null | HTMLDivElement>(null);
 
@@ -85,7 +98,8 @@ const App = () => {
         { name: ingredient, isVisible: true, id: crypto.randomUUID(), drinks },
       ]);
     } catch (error) {
-      alert(`${ingredient} is not an ingredient!`);
+      setErrorMessage(`${ingredient} is not an ingredient!`);
+      setTimeout(clearErrorMessage, 3000);
     }
   };
 
@@ -161,7 +175,10 @@ const App = () => {
               block: "start",
             });
         }}
+        errorMessage={errorMessage}
+        clearErrorMessage={clearErrorMessage}
       />
+
       <div
         className="min-w-full snap-center md:w-2/3 md:min-w-0"
         ref={drinksRef}
@@ -173,7 +190,13 @@ const App = () => {
         className="flex min-w-full snap-center flex-col gap-8 bg-zinc-50 px-4 pt-24 md:w-1/3 md:min-w-0 md:px-8 md:shadow-md"
         ref={ingredientsRef}
       >
-        <InputIngredient onSubmit={addIngredient} />
+        <InputIngredient
+          onSubmit={addIngredient}
+          minimumLength={2}
+          maximumLength={20}
+          setError={setErrorMessage}
+        />
+
         <IngredientsList
           ingredients={ingredients}
           toggleIngredientVisibility={toggleIngredientVisibility}

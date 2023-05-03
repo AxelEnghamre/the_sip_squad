@@ -28,12 +28,11 @@ const Drink = ({
         cursor: "pointer",
       }}
       whileTap={{
-        scale: 0.9,
+        scale: 1,
         transition: { duration: 0.2 },
         cursor: "pointer",
       }}
       whileFocus={{ scale: 1.1, transition: { duration: 0.2 }, cursor: "grab" }}
-      initial={{ opacity: 1 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
     >
