@@ -123,7 +123,7 @@ const App = () => {
     setIngredients(updatedIngredients);
   };
 
-  const [currentPage, setCurrentPage] = useState<string>("drinks");
+  const [currentPage, setCurrentPage] = useState<string>("ingredients");
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     if (e.currentTarget.scrollLeft < window.innerWidth / 2) {
@@ -132,6 +132,13 @@ const App = () => {
       setCurrentPage("ingredients");
     }
   };
+
+  useEffect(() => {
+    ingredientsRef.current &&
+      ingredientsRef.current.scrollIntoView({
+        block: "start",
+      });
+  }, []);
 
   return (
     <div

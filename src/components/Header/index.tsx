@@ -59,6 +59,7 @@ const Header = ({
             stiffness: 200,
             damping: 20,
           }}
+          initial={false}
           variants={variants}
         />
       </div>
