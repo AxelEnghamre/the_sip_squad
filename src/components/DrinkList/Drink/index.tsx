@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { find, map } from "lodash";
+import { useState } from "react";
 
 function isIngredient(obj: any): obj is Ingredient {
   return obj && typeof obj === "object" && "isVisible" in obj;
@@ -12,9 +13,14 @@ const Drink = ({
   drink: any;
   ingredients: Ingredient[];
 }) => {
+  const [flip, setFlip] = useState(false);
+
   return (
     <motion.li
-      className="z-10 m-4 flex w-full max-w-4xl flex-row flex-wrap items-center gap-6 rounded-xl bg-zinc-100 p-4 shadow-lg md:w-10/12 md:flex-row"
+      onClick={() => {
+        setFlip(!flip);
+      }}
+      className=" z-10 m-4 flex w-full max-w-4xl flex-row flex-wrap items-center gap-6 overflow-hidden rounded-xl bg-zinc-100 p-4 shadow-lg md:w-10/12 md:flex-row"
       key={crypto.randomUUID()}
       whileHover={{
         scale: 1.05,
@@ -72,6 +78,23 @@ const Drink = ({
           })}
         </ul>
       </div>
+      <motion.div
+        // className={`${flip? "block h-fit" : "hidden h-0"} overflow-hidden`}
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: flip ? 1 : 0, height: flip ? "auto" : 0 }}
+        exit={{ opacity: !flip ? 0 : 1, height: !flip ? 0 : 1 }}
+        transition={{ type: "spring", duration: 0.5 }}
+      >
+        <h3 className="mb-4 w-60 text-3xl font-medium text-zinc-950">
+          Instructions
+        </h3>
+        {map(drink.ingredients, (value, key) => {
+          if (key === "strInstructions" && value) {
+            return <p key={crypto.randomUUID()}>{value}</p>;
+          }
+          return null;
+        })}
+      </motion.div>
     </motion.li>
   );
 };
