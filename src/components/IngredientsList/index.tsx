@@ -11,7 +11,7 @@ const IngredientsList = ({
   removeIngredient: Function;
 }) => {
   return (
-    <motion.ul className="flex h-fit w-full flex-col gap-2">
+    <motion.ul className="flex h-fit w-full flex-col gap-4">
       <AnimatePresence mode="popLayout">
         {ingredients.map((ingredient) => {
           return (

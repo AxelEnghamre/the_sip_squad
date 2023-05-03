@@ -24,8 +24,8 @@ const ListItem = ({
       whileHover={{ scale: 1.05 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0, transition: { duration: 0 } }}
-      transition={{ type: "spring" }}
-      initial={{ scale: 0.8, opacity: 0 }}
+      transition={{ type: "spring", duration: 0.5 }}
+      initial={{ scale: 0.5, opacity: 0 }}
     >
       <div
         onClick={handleVisibility}
