@@ -16,26 +16,18 @@ const Drink = ({
     <motion.li
       className="z-10 m-4 flex w-full max-w-4xl flex-row flex-wrap items-center gap-6 rounded-xl bg-zinc-100 p-4 shadow-lg md:w-10/12 md:flex-row"
       key={crypto.randomUUID()}
-      /* whileDrag={{ scale: 1.1 }}
-      drag */
       whileHover={{
-        scale: 1.1,
+        scale: 1.05,
         transition: { duration: 0.2 },
         cursor: "pointer",
       }}
-      /* whileTap={{
-        scale: 0.9,
-        transition: { duration: 0.2 },
-        cursor: "grabbing",
-      }} */
-      //on click of drink, open modal with drink details
       whileTap={{
         scale: 0.9,
         transition: { duration: 0.2 },
         cursor: "pointer",
       }}
       whileFocus={{ scale: 1.1, transition: { duration: 0.2 }, cursor: "grab" }}
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 1 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
     >
