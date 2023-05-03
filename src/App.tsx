@@ -187,7 +187,7 @@ const App = () => {
       </div>
 
       <div
-        className="flex min-w-full snap-center flex-col gap-8 bg-zinc-50 px-4 pt-24 md:w-1/3 md:min-w-0 md:px-8 md:shadow-md"
+        className="flex min-w-full snap-center flex-col gap-8 overflow-y-scroll bg-zinc-50 px-4 pt-24 md:w-1/3 md:min-w-0 md:px-8 md:shadow-md"
         ref={ingredientsRef}
       >
         <InputIngredient
