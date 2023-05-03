@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { find, map } from "lodash";
 import { useState } from "react";
 
@@ -78,23 +78,24 @@ const Drink = ({
           })}
         </ul>
       </div>
-      <motion.div
-        // className={`${flip? "block h-fit" : "hidden h-0"} overflow-hidden`}
-        initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: flip ? 1 : 0, height: flip ? "auto" : 0 }}
-        exit={{ opacity: !flip ? 0 : 1, height: !flip ? 0 : 1 }}
-        transition={{ type: "spring", duration: 0.5 }}
-      >
-        <h3 className="mb-4 w-60 text-3xl font-medium text-zinc-950">
-          Instructions
-        </h3>
-        {map(drink.ingredients, (value, key) => {
-          if (key === "strInstructions" && value) {
-            return <p key={crypto.randomUUID()}>{value}</p>;
-          }
-          return null;
-        })}
-      </motion.div>
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: flip ? 1 : 0, height: flip ? "auto" : 0 }}
+          exit={{ opacity: !flip ? 0 : 1, height: !flip ? 0 : 1 }}
+          transition={{ type: "spring", duration: 0.5 }}
+        >
+          <h3 className="mb-4 w-60 text-3xl font-medium text-zinc-950">
+            Instructions
+          </h3>
+          {map(drink.ingredients, (value, key) => {
+            if (key === "strInstructions" && value) {
+              return <p key={crypto.randomUUID()}>{value}</p>;
+            }
+            return null;
+          })}
+        </motion.div>
+      </AnimatePresence>
     </motion.li>
   );
 };
