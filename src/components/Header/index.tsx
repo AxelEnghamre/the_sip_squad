@@ -75,7 +75,7 @@ const Header = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ type: "spring", duration: 0.5 }}
-            className="fixed left-0 right-0 top-0 z-50 mx-auto mt-1 flex h-fit w-fit flex-row gap-4 rounded-3xl bg-slate-50 px-8 py-3 shadow-md md:mt-8"
+            className="fixed left-0 right-0 top-0 z-50 mx-auto mt-1 flex h-fit w-fit flex-row gap-4 rounded-3xl border-2 border-red-300 bg-red-100 px-8 py-3 shadow-md md:mt-8"
           >
             <div className="relative flex w-full items-center justify-between">
               <h1 className="text-xl font-bold text-red-500">{errorMessage}</h1>
