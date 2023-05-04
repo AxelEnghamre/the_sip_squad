@@ -21,25 +21,13 @@ const Drink = ({
         onClick={() => {
           setFlip(!flip);
         }}
-        className=" z-10 m-4 flex w-full max-w-4xl flex-row flex-wrap items-center gap-6 overflow-hidden rounded-xl bg-zinc-100 p-4 shadow-lg md:w-10/12 md:flex-row"
+        className=" z-10 m-4 flex w-full max-w-4xl flex-row flex-wrap items-center gap-6 overflow-hidden rounded-xl bg-zinc-100 p-4 shadow-lg transition-all duration-500 ease-in-out hover:shadow-2xl md:w-10/12 md:flex-row"
         key={drink.strDrink}
         whileHover={{
-          scale: 1.05,
+          scale: 1,
           transition: { duration: 0.5, type: "spring" },
           cursor: "pointer",
         }}
-        whileTap={{
-          scale: 1,
-          transition: { duration: 0.2 },
-          cursor: "pointer",
-        }}
-        whileFocus={{
-          scale: 1.1,
-          transition: { duration: 0.2 },
-          cursor: "grab",
-        }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
       >
         <img
           src={drink.strDrinkThumb}
@@ -85,9 +73,8 @@ const Drink = ({
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: flip ? 1 : 0, height: flip ? "auto" : 0 }}
-          //exit={{ opacity: !flip ? 0 : 1, height: !flip ? 0 : 1 }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ type: "spring", duration: 0.5 }}
+          exit={{ opacity: !flip ? 0 : 1, height: !flip ? 0 : 1 }}
+          transition={{ type: "spring", duration: 1 }}
         >
           <h3 className="mb-4 w-60 text-3xl font-medium text-zinc-950">
             Instructions
